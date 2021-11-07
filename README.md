@@ -14,3 +14,5 @@ Sadly this didn't work as intended as shopTotalCost += aTotalCost; is adding the
 And that is were I got up to by the end of the 1.5 hour time limit.
 
 If I had more time I would obviously look at fixing the total shop calculation but also look at adding a removal option from the cart, which I thought about when adding the aTotalCount varibles. Though I would need a better maths solution to the discount option as I would have to calculate it on the total item amount and not just after 3 clicks on the A button for example.
+
+Code was written and tested using the W3Schools editor https://www.w3schools.com/js/tryit.asp?filename=tryjs_editor
