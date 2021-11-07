@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>CHECKOUT SYSTEM</h2>
+
+<p>Implement the code for a checkout system that handles pricing schemes such as “apples cost 50 pence, three apples cost £1.30.” <b>- DONE</b></p>
+<p>Implement the code for a basket that calculates the total price of a number of items.<b>- IN COMPLETE</b></p>
+<p>In a normal store, things are identified using Stock Keeping Units, or SKUs. In our store, we’ll use individual letters of the alphabet (A, B, C, and so on). Our goods are priced individually. In addition, some items are multi-priced: buy ‘n’ of them, and they’ll cost you ‘y’ pence. For example, item ‘A’ might cost 50 pence individually, but this week we have a special offer: buy three ‘A’s and they’ll cost you £1.30.</p>
+
+<button onclick="buyA()">A</button>
+<button onclick="buyB()">B</button>
+<button onclick="buyC()">C</button>
+<button onclick="buyD()">D</button>
+
+<p id="itemTotala">A Total Cost</p>
+<p id="itemTotalb">B Total Cost</p>
+<p id="itemTotalc">C Total Cost</p>
+<p id="itemTotald">D Total Cost</p>
+<p id="shopTotal">Shop Total Cost</p>
+
+<script>
+var a = 50; // item price
+var b = 30;
+var c = 20;
+var d = 15;
+var aCost = 0; // item costs
+var bCost = 0;
+var cCost = 0;
+var dCost = 0;
+var aTotalCount = 0; // Was potentially to be used to figure out the Total Shop but ran out of time 
+var bTotalCount = 0;
+var cTotalCount = 0;
+var dTotalCount = 0;
+var aCount = 0; // used to track item ammount to enable discount
+var bCount = 0;
+var cCount = 0;
+var dCount = 0;
+const aMultiDiscount = 3; // amount of items to enable the discount offer
+const bMultiDiscount = 2;
+const cMultiDiscount = 0; // no discount available
+const dMultiDiscount = 0;
+const aDiscount = 20; // amount off the price if discount enabled
+const bDiscount = 15;
+const cDiscount = 0;
+const dDiscount = 0;
+var aTotalCost = 0; // total cost to be added to shopTotalCost
+var bTotalCost = 0;
+var cTotalCost = 0;
+var dTotalCost = 0;
+var shopTotalCost = 0;
+var aBought = false; // used to add choosen basket to shop total
+var bBought = false;
+var cBought = false;
+var dBought = false;
+
+// When A is pressed
+function buyA() {
+  aTotalCount++; // overall count which could be used when expanding the system to remove items
+  aCount++; // used to enable discount
+  aCost += a; // increase cost total
+  aTotalCost = aCost; // set totalcost
+  aBought = true; // ensures only a is added to totalShopCost when updateShopTotal() is called
+  
+  // Enable any discount
+  if (aCount == aMultiDiscount) {
+    aCost -= aDiscount; // enable discount
+    aTotalCost = aCost; // set total cost
+    aCount = 0; // reset discount trigger
+    aBought = true; // used to so it only added total cost of item when running updateShopTotal function
+  }  
+
+  document.getElementById("itemTotala").innerHTML = aTotalCost; // display item total price
+
+  updateShopTotal(); // call updateShopTotal function
+}
+
+// When B is pressed
+function buyB() {
+  bTotalCount++;
+  bCount++;
+  bCost = bCost+b;
+  bTotalCost = bCost;
+  bBought = true;
+
+  // Enable any discount
+  if (bCount == bMultiDiscount) {
+    bCost -= bDiscount;
+    bTotalCost = bCost;
+    bCount = 0;
+    bBought = true;
+  }  
+
+  document.getElementById("itemTotalb").innerHTML = bTotalCost;
+  
+  updateShopTotal();
+}
+
+// When C is pressed
+function buyC() {
+  cTotalCount++;
+  cCount++; 
+  cCost = cCost+c;
+  cTotalCost = cCost;
+  cBought = true;
+  
+  // Enable any discount
+  if (cCount == cMultiDiscount) {
+    cCost -= cDiscount;
+    cTotalCost = cCost;
+    cCount = 0;
+    cBought = true;
+  }  
+
+  document.getElementById("itemTotalc").innerHTML = cTotalCost;
+  updateShopTotal();
+}
+
+// When D is pressed
+function buyD() {
+  dTotalCount++;
+  dCount++;
+  dCost = dCost+d;
+  dTotalCost = dCost;
+  dBought = true;
+
+  // Enable any discount
+  if (dCount == dMultiDiscount) {
+    dCost -= dDiscount;
+    dTotalCost = dCost;
+    dCount = 0;
+    dBought = true;
+  }
+  
+  document.getElementById("itemTotald").innerHTML = dTotalCost;
+  updateShopTotal();
+}
+
+// Update the Shop Total - broken! readds shoptotal instead of adding to!
+function updateShopTotal(){
+  if (aBought == true) {
+    shopTotalCost += aTotalCost; // add the item cost to the current shop total
+    document.getElementById("shopTotal").innerHTML = shopTotalCost; // display shop total 
+    aTotalCost = 0;
+    aBought = false; // reset trigger
+  }
+  if (bBought == true) {
+    shopTotalCost += bTotalCost;
+    document.getElementById("shopTotal").innerHTML = shopTotalCost;
+    bTotalCost = 0;
+    bBought = false;
+  }
+  if (cBought == true) {
+    shopTotalCost += cTotalCost;
+    cTotalCost = 0;
+    document.getElementById("shopTotal").innerHTML = shopTotalCost;
+    cBought = false;
+  }
+  if (dBought == true) {
+    shopTotalCost += dTotalCost;
+    dTotalCost = 0;
+    document.getElementById("shopTotal").innerHTML = shopTotalCost;
+    dBought = false;
+  }
+}
+
+</script>
+
+</body>
+</html>
